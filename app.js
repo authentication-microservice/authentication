@@ -64,11 +64,28 @@ app.post('/login', function(req, res) {
                 });
             }
             console.log(row);
-            res.json({
-                message: 'User lookup complete'
+            if (!row) {
+                return res.status(401).json({
+                message: 'Invalid email or password'
             });
-        }
-    );
+            }
+            const bcrypt = require('bcrypt');
+
+            const passwordMatch = bcrypt.compareSync(
+                password,
+                row.password
+            );
+            if (!passwordMatch) {
+                return res.status(401).json({
+                    message: 'Invalid email or password'
+                });
+            }
+            res.json({
+                message: 'Login successful',
+                userId: row.id
+            });
+                    }
+                );
 });
 
 
