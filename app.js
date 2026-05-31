@@ -81,8 +81,10 @@ app.post('/login', function(req, res) {
                 });
             }
             res.json({
-                message: 'Login successful',
-                userId: row.id
+                success: true,
+                userId: row.id,
+                firstname: row.firstname,
+                email: row.email
             });
                     }
                 );
