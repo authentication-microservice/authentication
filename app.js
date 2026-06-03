@@ -1,7 +1,7 @@
 const express = require('express');
-
+const cors = require('cors');
 const app = express();
-
+app.use(cors());
 const db = require('./database');
 
 app.use(express.json());
@@ -43,6 +43,8 @@ app.post('/signup', function(req, res) {
 
 });
 
+
+//User Login
 app.post('/login', function(req, res) {
 
     const email = req.body.email;
@@ -80,6 +82,7 @@ app.post('/login', function(req, res) {
                     message: 'Invalid email or password'
                 });
             }
+            console.log("Found user!")
             res.json({
                 success: true,
                 userId: row.id,
